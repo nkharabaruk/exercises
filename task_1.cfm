@@ -15,45 +15,20 @@
         </table>
     </form>
 
+
 <cfscript>
-
-    if(isDefined("Form.input")) {
-        function splitArray() {
-            splittedArray = Form.input.split(' ');
-            for(i = 1; i <= arraylen(splittedArray); i++) {
-                writeOutput(splittedArray[i]);
-                writeOutput(' ');
-            }
-        }
-
+    pivot = createObject("component", "exercises.pivot");
+    if (isDefined("Form.input")) {
         writeOutput('Array: ');
-        splitArray();
-        writeOutput('<br>Pivot number: ');
-
-        function findPivot(required splittedArray) {
-            pivot = 1;
-            left = 0;
-            for (i = 2; i <= arrayLen(splittedArray); i++) {
-                right = 0;
-                left += splittedArray[i - 1];
-                for (j = arrayLen(splittedArray); j > i; j--) {
-                    right += splittedArray[j];
-                }
-                if (left == right) {
-                    pivot = i;
-                    break;
-                }
-            }
-            if (pivot == 1) {
-                writeOutput("There isn`t a pivot number.");
-            }
-            else
-                WriteOutput(splittedArray[pivot]);
+        mySplitArray = pivot.splitArray(Form.input);
+        for(i = 1; i <= arraylen(mySplitArray); i++) {
+            writeOutput(mySplitArray[i]);
+            writeOutput(' ');
         }
-
-        findPivot(splittedArray);
+        writeOutput('<br>Pivot number: ');
+        myFindPivot = pivot.findPivot(mySplitArray);
+        writeOutput(myFindPivot);
     }
-
 </cfscript>
 
 </body>
