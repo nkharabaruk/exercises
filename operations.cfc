@@ -2,7 +2,7 @@
     <cffunction name="insert" access="remote">
         <cftry>
             <cfquery name="insert" datasource="userSource">
-                INSERT INTO users('name', date_of_birth, post_code, house_number, country, city, street)
+                INSERT INTO users(name, date_of_birth, post_code, house_number, country, city, street)
                 VALUES (<cfqueryparam value="#Form.name#"
                         CFSQLType="CF_SQL_VARCHAR">,
                     <cfqueryparam value="#Form.date_of_birth#"
@@ -20,15 +20,12 @@
 	        </cfquery>
             <cfcatch type = "database">
                 <h3>You've Thrown a Database <b>Error</b></h3>
-                <cfoutput>
-                    <p>#cfcatch.message#</p>
-                    <p>Caught an exception, type = #CFCATCH.TYPE#</p>
-                    <p>The contents of the tag stack are:</p>
-                    <cfdump var="#cfcatch.tagcontext#">
-                </cfoutput>
+                <cfdump var="#cfcatch#">
             </cfcatch>
             <cfcatch type="Any">
-                <cfthrow message="There was an error">
+                <cfdump var="#form#">
+                <cfdump var="#cfcatch#">
+                <cfabort>
             </cfcatch>
         </cftry>
     </cffunction>

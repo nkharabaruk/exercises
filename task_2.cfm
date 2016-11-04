@@ -4,6 +4,16 @@
 </head>
 <body>
 
+<cfscript>
+    operations = createObject("component", "exercises.operations");
+    if (isDefined("action")) {
+        if (url.action eq "insert") {
+            operations.insert();
+        }
+    }
+</cfscript>
+
+
 <cflayout type="vbox" name="layout1">
     <cflayoutarea>
         <h1>Log in to website</h1>
